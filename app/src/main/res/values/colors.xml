@@ -1,24 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- AI-Modern Palette: Deep Space, Electric Blue, and Silver -->
-    <color name="primary">#6366F1</color> <!-- Indigo Moderno (AI vibe) -->
-    <color name="primary_variant">#4F46E5</color>
-    <color name="secondary">#06B6D4</color> <!-- Cyan Eléctrico -->
-    <color name="accent">#A855F7</color> <!-- Púrpura AI -->
+    <!-- Modern Social Palette (Instagram/TikTok Inspired) -->
+    <color name="primary">#000000</color> <!-- Negro Puro para elegancia -->
+    <color name="primary_variant">#1A1A1A</color>
+    <color name="secondary">#FF3B5C</color> <!-- Rojo TikTok (Energía) -->
+    <color name="accent">#4F46E5</color> <!-- Indigo Moderno -->
 
-    <color name="background">#0F172A</color> <!-- Azul Espacio Profundo (Invitados) -->
-    <color name="background_light">#1E293B</color> <!-- Azul Slate (Clientes) -->
-    <color name="surface">#1E293B</color> <!-- Gris Slate Oscuro -->
-    <color name="on_surface">#F1F5F9</color> <!-- Blanco Grisáceo -->
+    <color name="background">#FAFAFA</color> <!-- Blanco Instagram (Limpio) -->
+    <color name="background_light">#FFFFFF</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="on_surface">#000000</color>
 
-    <color name="text_main">#F8FAFC</color>
-    <color name="text_secondary">#94A3B8</color>
+    <color name="text_main">#000000</color>
+    <color name="text_secondary">#8E8E8E</color> <!-- Gris Instagram para subtítulos -->
 
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-    <color name="divider">#334155</color>
+    <color name="divider">#DBDBDB</color> <!-- Divisor fino estilo Instagram -->
 
-    <color name="card_bg">#1E293B</color>
-    <color name="button_gradient_start">#6366F1</color>
-    <color name="button_gradient_end">#A855F7</color>
+    <!-- Modern Gradients -->
+    <color name="button_gradient_start">#FF3B5C</color> <!-- TikTok Red -->
+    <color name="button_gradient_end">#BD2C45</color>
+
+    <color name="grad_guest_start">#F5F5F5</color>
+    <color name="grad_guest_end">#E5E5E5</color>
+
+    <color name="grad_client_start">#FFFFFF</color>
+    <color name="grad_client_end">#F0F2F5</color>
+
+    <color name="grad_pro_start">#FFFFFF</color>
+    <color name="grad_pro_end">#E0E7FF</color>
 </resources>

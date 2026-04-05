@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.ServiHub" parent="Theme.Material3.Dark.NoActionBar">
+    <style name="Theme.ServiHub" parent="Theme.Material3.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorOnPrimary">@color/white</item>
@@ -13,6 +13,6 @@
         <item name="android:windowBackground">@color/background</item>
 
         <!-- Customize your theme here. -->
-        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 </resources>

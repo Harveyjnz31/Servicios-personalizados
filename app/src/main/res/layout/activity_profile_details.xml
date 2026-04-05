@@ -23,7 +23,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintTop_toBottomOf="@id/tvTitle"
-        app:layout_constraintBottom_toTopOf="@id/btnEdit">
+        app:layout_constraintBottom_toTopOf="@id/llActions">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cvProfile"
@@ -188,12 +188,29 @@
         </com.google.android.material.card.MaterialCardView>
     </ScrollView>
 
-    <Button
-        android:id="@+id/btnEdit"
+    <LinearLayout
+        android:id="@+id/llActions"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:text="@string/btn_edit_profile"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnContact"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:text="Contactar por WhatsApp"
+            android:layout_marginBottom="8dp"
+            android:visibility="gone"
+            app:icon="@android:drawable/ic_menu_call"
+            style="@style/Widget.MaterialComponents.Button.Icon"/>
+
+        <Button
+            android:id="@+id/btnEdit"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:text="@string/btn_edit_profile" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

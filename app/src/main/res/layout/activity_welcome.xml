@@ -10,8 +10,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/background">
+        android:layout_height="match_parent">
 
         <!-- Top Guide to prevent overlap with Menu Button -->
         <androidx.constraintlayout.widget.Guideline
@@ -19,18 +18,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="72dp" />
+            app:layout_constraintGuide_begin="56dp" />
 
         <!-- Header Icon / Illustration (Visible for Professionals/Guests) -->
         <ImageView
             android:id="@+id/ivMainIcon"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:src="@drawable/ic_launcher_foreground"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/guideTop"
-            app:tint="@color/secondary" />
+            app:tint="@color/primary" />
 
         <!-- Welcome Header -->
         <LinearLayout
@@ -41,54 +40,95 @@
             android:orientation="vertical"
             android:paddingHorizontal="32dp"
             app:layout_constraintTop_toBottomOf="@id/ivMainIcon"
-            app:layout_goneMarginTop="24dp">
+            app:layout_goneMarginTop="8dp">
 
             <TextView
                 android:id="@+id/tvWelcome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="4dp"
                 android:text="@string/welcome_title"
-                android:textColor="@color/white"
-                android:textSize="28sp"
+                android:textColor="@color/text_main"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvSubtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:gravity="center"
                 android:text="@string/welcome_subtitle"
                 android:textColor="@color/text_secondary"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSwitchRoleQuick"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginTop="8dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:paddingHorizontal="16dp"
+                android:text="Modo: Cliente"
+                android:textColor="@color/accent"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:cornerRadius="18dp"
+                app:icon="@drawable/ic_menu"
+                app:iconSize="14dp"
+                app:iconPadding="8dp"
+                app:iconTint="@color/accent"
+                tools:visibility="visible" />
         </LinearLayout>
 
-        <!-- Services Section (Visible for Logged Clients) -->
+        <!-- Services Section (Discovery Style) -->
         <LinearLayout
             android:id="@+id/llServices"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:orientation="vertical"
             android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@id/actionsCard"
             app:layout_constraintTop_toBottomOf="@id/llHeader">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
-                android:text="Servicios Destacados"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:paddingHorizontal="24dp">
+
+                <TextView
+                    android:id="@+id/tvServicesTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Descubre Expertos"
+                    android:textColor="@color/text_main"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/btnViewAllServices"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:text="Ver todos"
+                    android:textColor="@color/accent"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="4dp"
+                    android:clickable="true"
+                    android:focusable="true" />
+            </RelativeLayout>
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="12dp"
                 android:clipToPadding="false"
                 android:paddingHorizontal="16dp"
                 android:scrollbars="none">
@@ -99,6 +139,51 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal" />
             </HorizontalScrollView>
+
+            <!-- Reviews Section (Notification Style) -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:paddingHorizontal="24dp">
+
+                <TextView
+                    android:id="@+id/tvReviewsTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Reseñas Recientes"
+                    android:textColor="@color/text_main"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/btnViewAllReviews"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:text="Ver todas"
+                    android:textColor="@color/accent"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="4dp"/>
+            </RelativeLayout>
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginTop="8dp"
+                android:clipToPadding="false"
+                android:paddingHorizontal="24dp">
+
+                <LinearLayout
+                    android:id="@+id/llRecentReviews"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+            </androidx.core.widget.NestedScrollView>
         </LinearLayout>
 
         <!-- Bottom Action Card -->
@@ -106,11 +191,13 @@
             android:id="@+id/actionsCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="8dp"
             app:cardBackgroundColor="@color/surface"
-            app:cardCornerRadius="24dp"
+            app:cardCornerRadius="16dp"
             app:cardElevation="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
             app:strokeColor="@color/divider"
             app:strokeWidth="1dp">
 
@@ -118,7 +205,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="24dp">
+                android:padding="8dp">
 
                 <LinearLayout
                     android:id="@+id/llLoggedIn"
@@ -127,12 +214,7 @@
                     android:orientation="vertical"
                     android:visibility="gone">
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnViewServices"
-                        android:layout_width="match_parent"
-                        android:layout_height="56dp"
-                        android:text="@string/btn_view_services"
-                        app:cornerRadius="12dp" />
+                    <!-- Button removed to favor 'Ver todos' link in services section -->
                 </LinearLayout>
 
                 <LinearLayout
@@ -182,7 +264,65 @@
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/white"
+            app:tint="@color/black"
+            tools:visibility="visible" />
+
+        <!-- Ad Banner (Marquee style) -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/adBanner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="64dp"
+            android:layout_marginEnd="16dp"
+            app:cardBackgroundColor="@color/accent"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeWidth="0dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                android:text="¡Nunca ha sido tan fácil contratar un servicio!"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:focusable="true"
+                android:focusableInTouchMode="true" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Bottom Navigation Bar -->
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/surface"
+            android:visibility="gone"
+            app:elevation="16dp"
+            app:itemIconTint="@color/accent"
+            app:itemTextColor="@color/text_main"
+            app:labelVisibilityMode="labeled"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:menu="@menu/bottom_nav_menu"
+            tools:visibility="visible" />
+
+        <!-- Top border for Bottom Nav to separate from content -->
+        <View
+            android:id="@+id/bottomNavDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
             tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -192,7 +332,10 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:background="@color/white"
         app:headerLayout="@layout/nav_header"
+        app:itemIconTint="#444444"
+        app:itemTextColor="#222222"
         app:menu="@menu/nav_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

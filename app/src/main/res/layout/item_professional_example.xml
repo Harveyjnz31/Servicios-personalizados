@@ -1,51 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="280dp"
+    android:layout_width="140dp"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    app:cardBackgroundColor="@color/surface"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="4dp">
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="3dp"
+    app:strokeWidth="0dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="12dp">
 
-        <ImageView
-            android:id="@+id/ivExampleAvatar"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:src="@android:drawable/ic_menu_manage"
-            app:tint="@color/secondary" />
+        <!-- Circular Profile Style -->
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivExampleAvatar"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:padding="2dp"
+                android:src="@android:drawable/ic_menu_myplaces"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.MaterialComponents.LargeComponent"
+                app:strokeColor="@color/accent"
+                app:strokeWidth="2dp" />
+
+            <View
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="4dp"
+                android:background="@drawable/bg_online_indicator" />
+        </FrameLayout>
 
         <TextView
             android:id="@+id/tvExampleName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Nombre Profesional"
-            android:textColor="@color/white"
+            android:layout_marginTop="10dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Nombre"
+            android:textColor="@color/text_main"
+            android:textSize="13sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvExampleService"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Plomería Especializada"
-            android:textColor="@color/accent"
-            android:textSize="12sp" />
+            android:layout_marginTop="2dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="Servicio"
+            android:textColor="@color/text_secondary"
+            android:textSize="11sp" />
 
-        <com.google.android.material.button.MaterialButton
-            style="@style/Widget.MaterialComponents.Button.TextButton"
+        <!-- Rating pill style -->
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Ver Perfil"
-            android:textColor="@color/primary"
-            android:textSize="10sp" />
+            android:background="@drawable/bg_rating_pill"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="2dp">
+
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:src="@android:drawable/btn_star_big_on"
+                app:tint="#FFD700" />
+
+            <TextView
+                android:id="@+id/tvExampleRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="4.9"
+                android:textColor="@color/text_main"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>
