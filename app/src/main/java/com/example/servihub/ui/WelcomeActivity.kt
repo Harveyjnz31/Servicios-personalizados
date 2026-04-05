@@ -45,9 +45,15 @@ class WelcomeActivity : AppCompatActivity() {
             val headerEmail = headerView.findViewById<TextView>(R.id.nav_header_email)
             val headerImage = headerView.findViewById<ImageView>(R.id.nav_header_imageView)
 
-            val switchMenuItem = binding.navView.menu.findItem(R.id.nav_switch_role)
+            // Dynamic visibility of menu groups
+            binding.navView.menu.setGroupVisible(R.id.group_user_actions, profile != null)
+            binding.navView.menu.findItem(R.id.nav_more_section).isVisible = profile != null
 
             if (profile != null) {
+                // Enabled drawer for logged users
+                binding.drawerLayout.setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED)
+                binding.btnMenu.visibility = View.VISIBLE
+
                 val roleText = if (profile.userRole == "PROFESSIONAL") "Profesional" else "Cliente"
                 binding.tvWelcome.text = getString(R.string.welcome_back, profile.fullName)
                 binding.tvSubtitle.text = getString(R.string.mode_prefix, roleText)
@@ -57,12 +63,22 @@ class WelcomeActivity : AppCompatActivity() {
                 
                 headerName.text = profile.fullName
                 headerEmail.text = "${profile.email} - $roleText"
-                headerImage.setImageResource(R.drawable.ic_launcher_foreground)
+                
+                // Assign role-based avatar
+                if (profile.userRole == "PROFESSIONAL") {
+                    headerImage.setImageResource(android.R.drawable.ic_menu_manage) // Tool icon for pro
+                } else {
+                    headerImage.setImageResource(android.R.drawable.ic_menu_myplaces) // House/Place for client
+                }
 
-                switchMenuItem?.isVisible = true
+                val switchMenuItem = binding.navView.menu.findItem(R.id.nav_switch_role)
                 val nextRole = if (profile.userRole == "CLIENT") "Profesional" else "Cliente"
                 switchMenuItem?.title = getString(R.string.menu_switch_role, nextRole)
             } else {
+                // Disabled drawer for guest users
+                binding.drawerLayout.setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+                binding.btnMenu.visibility = View.GONE
+
                 binding.tvWelcome.text = getString(R.string.welcome_title)
                 binding.tvSubtitle.text = getString(R.string.welcome_subtitle)
                 
@@ -72,8 +88,6 @@ class WelcomeActivity : AppCompatActivity() {
                 headerName.text = getString(R.string.nav_header_title)
                 headerEmail.text = getString(R.string.nav_header_subtitle)
                 headerImage.setImageResource(android.R.drawable.sym_def_app_icon)
-                
-                switchMenuItem?.isVisible = false
             }
         }
     }
@@ -115,6 +129,13 @@ class WelcomeActivity : AppCompatActivity() {
             } else {
                 showToast(getString(R.string.error_empty_email))
             }
+        }
+        dialogBinding.btnForgotPassword.setOnClickListener {
+            androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle(getString(R.string.btn_forgot_password))
+                .setMessage(getString(R.string.forgot_password_message))
+                .setPositiveButton("OK", null)
+                .show()
         }
         dialog.show()
     }

@@ -10,7 +10,8 @@
     <string name="login_title">Bienvenido de nuevo</string>
     <string name="login_subtitle">Ingresa tu correo para continuar</string>
     <string name="hint_login_email">Correo electrónico registrado</string>
-    <string name="btn_action_login">Entrar</string>
+    <string name="btn_forgot_password">¿Olvidaste tu correo?</string>
+    <string name="forgot_password_message">Por seguridad, contacta a soporte para recuperar tu acceso: soporte@servihub.com</string>
 
     <string name="registration_title">Crea tu Perfil</string>
     <string name="hint_full_name">Nombre Completo</string>

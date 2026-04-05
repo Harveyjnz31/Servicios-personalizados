@@ -39,7 +39,12 @@ class ProfileDetailsActivity : AppCompatActivity() {
                 binding.tvAge.text = getString(R.string.years_suffix, it.age.toString())
                 binding.tvCity.text = it.city
                 binding.tvAddress.text = it.address
-                binding.rbRating.rating = it.rating
+                // Assign role-based avatar in details as well
+                if (it.userRole == "PROFESSIONAL") {
+                    binding.ivAvatar.setImageResource(android.R.drawable.ic_menu_manage)
+                } else {
+                    binding.ivAvatar.setImageResource(android.R.drawable.ic_menu_myplaces)
+                }
                 
                 val isProfessional = it.userRole == "PROFESSIONAL"
                 binding.tvRole.text = if (isProfessional) getString(R.string.role_professional) else getString(R.string.role_client)
