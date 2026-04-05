@@ -2,6 +2,7 @@ package com.example.servihub.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -24,6 +25,9 @@ class WelcomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityWelcomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        
+        // Triple security: Hide menu button immediately on startup
+        binding.btnMenu.visibility = View.GONE
         
         // Force background color to prevent white screen issues
         binding.root.setBackgroundColor(getColor(R.color.background))
@@ -60,6 +64,16 @@ class WelcomeActivity : AppCompatActivity() {
                 
                 binding.llLoggedIn.visibility = View.VISIBLE
                 binding.llGuest.visibility = View.GONE
+
+                // Show services list for clients, show icon for professionals
+                if (profile.userRole == "CLIENT") {
+                    binding.llServices.visibility = View.VISIBLE
+                    binding.ivMainIcon.visibility = View.GONE
+                    setupExampleProfessionals()
+                } else {
+                    binding.llServices.visibility = View.GONE
+                    binding.ivMainIcon.visibility = View.VISIBLE
+                }
                 
                 headerName.text = profile.fullName
                 headerEmail.text = "${profile.email} - $roleText"
@@ -78,6 +92,8 @@ class WelcomeActivity : AppCompatActivity() {
                 // Disabled drawer for guest users
                 binding.drawerLayout.setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
                 binding.btnMenu.visibility = View.GONE
+                binding.llServices.visibility = View.GONE
+                binding.ivMainIcon.visibility = View.VISIBLE
 
                 binding.tvWelcome.text = getString(R.string.welcome_title)
                 binding.tvSubtitle.text = getString(R.string.welcome_subtitle)
@@ -140,7 +156,30 @@ class WelcomeActivity : AppCompatActivity() {
         dialog.show()
     }
 
+    private fun setupExampleProfessionals() {
+        binding.llProfessionalList.removeAllViews()
+        val inflater = LayoutInflater.from(this)
+        
+        val examples = listOf(
+            Pair("Carlos Ruiz", "Electricista Certificado"),
+            Pair("Ana Marta", "Limpieza de Hogar"),
+            Pair("Roberto Gómez", "Plomería 24/7"),
+            Pair("Lucía Fernández", "Jardinería y Paisajismo")
+        )
+
+        for (example in examples) {
+            val itemView = inflater.inflate(R.layout.item_professional_example, binding.llProfessionalList, false)
+            itemView.findViewById<TextView>(R.id.tvExampleName).text = example.first
+            itemView.findViewById<TextView>(R.id.tvExampleService).text = example.second
+            binding.llProfessionalList.addView(itemView)
+        }
+    }
+
     private fun setupNavigationDrawer() {
+        // Initially lock the drawer and hide menu button
+        binding.drawerLayout.setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        binding.btnMenu.visibility = View.GONE
+
         binding.navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_history -> showToast(getString(R.string.menu_history))
@@ -163,7 +202,6 @@ class WelcomeActivity : AppCompatActivity() {
         currentProfile?.let {
             val newRole = if (it.userRole == "CLIENT") "PROFESSIONAL" else "CLIENT"
             val updatedProfile = it.copy(userRole = newRole)
-            // We need a method in ViewModel to update the profile
             viewModel.updateProfile(updatedProfile)
             showToast("Cambiado a ${if (newRole == "CLIENT") "Cliente" else "Profesional"}")
         }
