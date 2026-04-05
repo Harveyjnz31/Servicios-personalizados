@@ -16,9 +16,30 @@ class RegisterViewModel(private val repository: UserRepository) : ViewModel() {
     private val _error = MutableLiveData<String?>()
     val error: LiveData<String?> get() = _error
 
-    fun registerUser(name: String, email: String, phone: String, service: String, exp: String) {
-        if (name.isBlank() || email.isBlank() || phone.isBlank() || service.isBlank() || exp.isBlank()) {
-            _error.value = "Por favor, completa todos los campos"
+    fun registerUser(
+        role: String,
+        name: String,
+        email: String,
+        phone: String,
+        age: String,
+        city: String,
+        address: String,
+        service: String,
+        exp: String
+    ) {
+        if (name.isBlank() || email.isBlank() || phone.isBlank() || age.isBlank() || city.isBlank() || address.isBlank()) {
+            _error.value = "Por favor, completa todos los campos obligatorios"
+            return
+        }
+
+        val ageInt = age.toIntOrNull()
+        if (ageInt == null || ageInt < 18) {
+            _error.value = "Debes ser mayor de 18 años para usar la app"
+            return
+        }
+
+        if (role == "PROFESSIONAL" && (service.isBlank() || exp.isBlank())) {
+            _error.value = "Por favor, completa los campos de profesional"
             return
         }
 
@@ -32,8 +53,13 @@ class RegisterViewModel(private val repository: UserRepository) : ViewModel() {
             fullName = name,
             email = email,
             phone = phone,
-            serviceType = service,
-            experienceYears = experience
+            age = ageInt,
+            city = city,
+            address = address,
+            serviceType = if (role == "PROFESSIONAL") service else "",
+            experienceYears = if (role == "PROFESSIONAL") experience else 0,
+            userRole = role,
+            rating = 5.0f // Initial rating
         )
         
         viewModelScope.launch {

@@ -12,6 +12,12 @@ interface UserDao {
     @Query("SELECT * FROM user_profile LIMIT 1")
     fun getProfile(): Flow<UserProfile?>
 
+    @Query("SELECT * FROM user_profile LIMIT 1")
+    suspend fun getProfileOnce(): UserProfile?
+
     @Query("DELETE FROM user_profile")
     suspend fun clearProfile()
+
+    @Update
+    suspend fun updateProfile(profile: UserProfile)
 }

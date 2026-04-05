@@ -1,6 +1,7 @@
 package com.example.servihub.ui
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.servihub.R
@@ -35,8 +36,21 @@ class ProfileDetailsActivity : AppCompatActivity() {
                 binding.tvName.text = it.fullName
                 binding.tvEmail.text = it.email
                 binding.tvPhone.text = it.phone
-                binding.tvExperience.text = getString(R.string.years_suffix, it.experienceYears.toString())
-                binding.tvSpecialty.text = it.serviceType
+                binding.tvAge.text = getString(R.string.years_suffix, it.age.toString())
+                binding.tvCity.text = it.city
+                binding.tvAddress.text = it.address
+                binding.rbRating.rating = it.rating
+                
+                val isProfessional = it.userRole == "PROFESSIONAL"
+                binding.tvRole.text = if (isProfessional) getString(R.string.role_professional) else getString(R.string.role_client)
+                
+                if (isProfessional) {
+                    binding.llProfessionalDetails.visibility = View.VISIBLE
+                    binding.tvExperience.text = getString(R.string.years_suffix, it.experienceYears.toString())
+                    binding.tvSpecialty.text = it.serviceType
+                } else {
+                    binding.llProfessionalDetails.visibility = View.GONE
+                }
             }
         }
     }

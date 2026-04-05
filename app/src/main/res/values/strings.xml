@@ -1,12 +1,24 @@
 <resources>
     <string name="app_name">ServiHub</string>
-    <string name="welcome_title">Bienvenido, Profesional</string>
-    <string name="welcome_subtitle">Únete a la mayor red de servicios y haz crecer tu negocio.</string>
-    <string name="btn_start_registration">Empezar Registro</string>
+    <string name="welcome_title">ServiHub AI</string>
+    <string name="welcome_subtitle">Conectando tus necesidades con soluciones inteligentes.</string>
+    <string name="btn_login">Iniciar Sesión</string>
+    <string name="btn_get_started">Comenzar Ahora</string>
+    <string name="already_registered">¿Ya tienes una cuenta?</string>
+    <string name="new_user_prompt">¿Nuevo en ServiHub?</string>
+    <string name="welcome_back">Hola de nuevo, %s</string>
+    <string name="login_title">Bienvenido de nuevo</string>
+    <string name="login_subtitle">Ingresa tu correo para continuar</string>
+    <string name="hint_login_email">Correo electrónico registrado</string>
+    <string name="btn_action_login">Entrar</string>
+
     <string name="registration_title">Crea tu Perfil</string>
     <string name="hint_full_name">Nombre Completo</string>
     <string name="hint_email">Correo Electrónico</string>
     <string name="hint_phone">Teléfono de contacto</string>
+    <string name="hint_address">Dirección de residencia</string>
+    <string name="hint_city">Ciudad/Municipio</string>
+    <string name="hint_age">Edad</string>
     <string name="hint_experience">Años de experiencia</string>
     <string name="hint_service_type">Especialidad (Ej. Eléctrico, Mecánico)</string>
     <string name="btn_save_profile">Guardar Perfil</string>
@@ -14,10 +26,37 @@
     <string name="label_name">Nombre:</string>
     <string name="label_email">Correo:</string>
     <string name="label_phone">Teléfono:</string>
+    <string name="label_address">Dirección:</string>
+    <string name="label_city">Ciudad:</string>
+    <string name="label_age">Edad:</string>
+    <string name="years_suffix">%s años</string>
     <string name="label_experience">Experiencia:</string>
     <string name="label_specialty">Especialidad:</string>
     <string name="btn_edit_profile">Editar Perfil</string>
-    <string name="years_suffix">%s años</string>
-    <string name="welcome_back">Hola de nuevo, %s</string>
     <string name="btn_view_profile">Ver Mi Perfil</string>
+
+    <string name="role_client">Cliente</string>
+    <string name="role_professional">Profesional</string>
+    <string name="label_role">Rol:</string>
+    <string name="label_rating">Calificación:</string>
+    <string name="menu_switch_role">Cambiar a %s</string>
+
+    <!-- Navigation Drawer -->
+    <string name="menu_history">Historial de solicitudes</string>
+    <string name="menu_notifications">Notificaciones</string>
+    <string name="menu_settings">Configuraciones</string>
+    <string name="menu_support">Soporte técnico</string>
+    <string name="menu_help">Ayudas rápidas</string>
+    <string name="menu_city">Ciudad</string>
+    <string name="menu_share">Compartir app</string>
+    <string name="menu_logout">Cerrar sesión</string>
+    <string name="nav_header_title">Usuario</string>
+    <string name="nav_header_subtitle">profesional@servihub.com</string>
+
+    <!-- UI Errors -->
+    <string name="error_invalid_email">Correo no registrado o inválido</string>
+    <string name="mode_prefix">Modo: %s</string>
+    <string name="error_empty_email">Por favor, ingresa un correo</string>
+    <string name="login_success">Sesión iniciada correctamente</string>
+    <string name="btn_start_registration" translatable="false">Empezar Registro</string>
 </resources>

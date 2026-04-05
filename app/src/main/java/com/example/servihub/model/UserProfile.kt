@@ -10,6 +10,11 @@ data class UserProfile(
     val fullName: String,
     val email: String,
     val phone: String,
+    val address: String,
+    val city: String,
+    val age: Int,
     val serviceType: String,
-    val experienceYears: Int
+    val experienceYears: Int,
+    val userRole: String = "CLIENT", // "CLIENT" or "PROFESSIONAL"
+    val rating: Float = 0.0f
 )

@@ -1,8 +1,18 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Theme.ServiHub" parent="Theme.Material3.DayNight.NoActionBar">
+    <!-- Base application theme. -->
+    <style name="Theme.ServiHub" parent="Theme.Material3.Dark.NoActionBar">
+        <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primary</item>
-        <item name="colorSecondary">@color/accent</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorOnSecondary">@color/white</item>
+
+        <!-- Status bar and navigation bar -->
         <item name="android:statusBarColor">@color/background</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">@color/background</item>
+        <item name="android:windowBackground">@color/background</item>
+
+        <!-- Customize your theme here. -->
+        <item name="android:windowLightStatusBar">false</item>
     </style>
 </resources>
