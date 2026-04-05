@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.ViewModelProvider
@@ -20,6 +21,13 @@ import com.example.servihub.viewmodel.WelcomeViewModel
 class WelcomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWelcomeBinding
     private lateinit var viewModel: WelcomeViewModel
+    private var isJustRegistered = false
+
+    private val registerLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            isJustRegistered = true
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,8 +37,8 @@ class WelcomeActivity : AppCompatActivity() {
         // Triple security: Hide menu button immediately on startup
         binding.btnMenu.visibility = View.GONE
         
-        // Force background color to prevent white screen issues
-        binding.root.setBackgroundColor(getColor(R.color.background))
+        // Force background to prevent white screen issues
+        binding.root.setBackgroundResource(R.drawable.bg_gradient_guest)
 
         val database = AppDatabase.getDatabase(this)
         val repository = UserRepository(database.userDao())
@@ -59,7 +67,10 @@ class WelcomeActivity : AppCompatActivity() {
                 binding.btnMenu.visibility = View.VISIBLE
 
                 val roleText = if (profile.userRole == "PROFESSIONAL") "Profesional" else "Cliente"
-                binding.tvWelcome.text = getString(R.string.welcome_back, profile.fullName)
+                
+                val welcomeRes = if (isJustRegistered) R.string.welcome_new else R.string.welcome_back
+                binding.tvWelcome.text = getString(welcomeRes, profile.fullName)
+                
                 binding.tvSubtitle.text = getString(R.string.mode_prefix, roleText)
                 
                 binding.llLoggedIn.visibility = View.VISIBLE
@@ -67,10 +78,12 @@ class WelcomeActivity : AppCompatActivity() {
 
                 // Show services list for clients, show icon for professionals
                 if (profile.userRole == "CLIENT") {
+                    binding.root.setBackgroundResource(R.drawable.bg_gradient_client)
                     binding.llServices.visibility = View.VISIBLE
                     binding.ivMainIcon.visibility = View.GONE
                     setupExampleProfessionals()
                 } else {
+                    binding.root.setBackgroundResource(R.drawable.bg_gradient_professional)
                     binding.llServices.visibility = View.GONE
                     binding.ivMainIcon.visibility = View.VISIBLE
                 }
@@ -90,6 +103,7 @@ class WelcomeActivity : AppCompatActivity() {
                 switchMenuItem?.title = getString(R.string.menu_switch_role, nextRole)
             } else {
                 // Disabled drawer for guest users
+                binding.root.setBackgroundResource(R.drawable.bg_gradient_guest)
                 binding.drawerLayout.setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
                 binding.btnMenu.visibility = View.GONE
                 binding.llServices.visibility = View.GONE
@@ -110,13 +124,14 @@ class WelcomeActivity : AppCompatActivity() {
 
     private fun setupListeners() {
         binding.btnStart.setOnClickListener {
-            startActivity(Intent(this, RegisterActivity::class.java))
+            registerLauncher.launch(Intent(this, RegisterActivity::class.java))
         }
         binding.btnLogin.setOnClickListener {
+            isJustRegistered = false
             showLoginDialog()
         }
-        binding.btnViewProfile.setOnClickListener {
-            startActivity(Intent(this, ProfileDetailsActivity::class.java))
+        binding.btnViewServices.setOnClickListener {
+            startActivity(Intent(this, ServicesListActivity::class.java))
         }
         binding.btnMenu.setOnClickListener {
             binding.drawerLayout.openDrawer(GravityCompat.START)
@@ -164,7 +179,12 @@ class WelcomeActivity : AppCompatActivity() {
             Pair("Carlos Ruiz", "Electricista Certificado"),
             Pair("Ana Marta", "Limpieza de Hogar"),
             Pair("Roberto Gómez", "Plomería 24/7"),
-            Pair("Lucía Fernández", "Jardinería y Paisajismo")
+            Pair("Lucía Fernández", "Jardinería y Paisajismo"),
+            Pair("Marcos Peña", "Obra Civil / Albañil"),
+            Pair("Julia Santos", "Soldadura Industrial"),
+            Pair("Pedro Alva", "Pintura de Exteriores"),
+            Pair("Luis Rivas", "Mecánica Automotriz"),
+            Pair("Sonia Tello", "Carpintería Fina")
         )
 
         for (example in examples) {

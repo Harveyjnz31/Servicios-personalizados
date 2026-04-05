@@ -6,7 +6,8 @@
     <color name="secondary">#06B6D4</color> <!-- Cyan Eléctrico -->
     <color name="accent">#A855F7</color> <!-- Púrpura AI -->
 
-    <color name="background">#0F172A</color> <!-- Azul Espacio Profundo -->
+    <color name="background">#0F172A</color> <!-- Azul Espacio Profundo (Invitados) -->
+    <color name="background_light">#1E293B</color> <!-- Azul Slate (Clientes) -->
     <color name="surface">#1E293B</color> <!-- Gris Slate Oscuro -->
     <color name="on_surface">#F1F5F9</color> <!-- Blanco Grisáceo -->
 

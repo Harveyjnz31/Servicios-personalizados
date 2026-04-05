@@ -6,10 +6,12 @@
     <string name="btn_get_started">Comenzar Ahora</string>
     <string name="already_registered">¿Ya tienes una cuenta?</string>
     <string name="new_user_prompt">¿Nuevo en ServiHub?</string>
+    <string name="welcome_new">Bienvenido a ServiHub, %s</string>
     <string name="welcome_back">Hola de nuevo, %s</string>
     <string name="login_title">Bienvenido de nuevo</string>
     <string name="login_subtitle">Ingresa tu correo para continuar</string>
     <string name="hint_login_email">Correo electrónico registrado</string>
+    <string name="btn_action_login">Entrar</string>
     <string name="btn_forgot_password">¿Olvidaste tu correo?</string>
     <string name="forgot_password_message">Por seguridad, contacta a soporte para recuperar tu acceso: soporte@servihub.com</string>
 
@@ -34,7 +36,18 @@
     <string name="label_experience">Experiencia:</string>
     <string name="label_specialty">Especialidad:</string>
     <string name="btn_edit_profile">Editar Perfil</string>
-    <string name="btn_view_profile">Ver Mi Perfil</string>
+    <string name="btn_view_services">Ver Listado de Servicios</string>
+    <string name="title_services_list">Servicios Disponibles</string>
+    <string name="category_electric">Electricidad</string>
+    <string name="category_plumbing">Plomería</string>
+    <string name="category_cleaning">Limpieza</string>
+    <string name="category_gardening">Jardinería</string>
+    <string name="category_civil">Obra Civil</string>
+    <string name="category_welding">Soldadura</string>
+    <string name="category_painting">Pintura</string>
+    <string name="category_mechanic">Mecánica</string>
+    <string name="category_carpentry">Carpintería</string>
+    <string name="no_professionals">No hay profesionales en esta categoría</string>
 
     <string name="role_client">Cliente</string>
     <string name="role_professional">Profesional</string>

@@ -35,6 +35,7 @@ class RegisterActivity : AppCompatActivity() {
         viewModel.registrationSuccess.observe(this) { success ->
             if (success) {
                 Toast.makeText(this, "Perfil Guardado con Éxito", Toast.LENGTH_SHORT).show()
+                setResult(RESULT_OK)
                 finish()
             }
         }

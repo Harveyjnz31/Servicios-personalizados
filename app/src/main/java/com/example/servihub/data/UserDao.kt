@@ -20,4 +20,7 @@ interface UserDao {
 
     @Update
     suspend fun updateProfile(profile: UserProfile)
+
+    @Query("SELECT * FROM user_profile WHERE userRole = 'PROFESSIONAL'")
+    fun getAllProfessionals(): Flow<List<UserProfile>>
 }

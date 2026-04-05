@@ -18,4 +18,6 @@ class UserRepository(val userDao: UserDao) {
     suspend fun update(profile: UserProfile) {
         userDao.updateProfile(profile)
     }
+
+    val allProfessionals: Flow<List<UserProfile>> = userDao.getAllProfessionals()
 }
