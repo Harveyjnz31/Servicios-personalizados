@@ -10,4 +10,14 @@
     <string name="hint_experience">Años de experiencia</string>
     <string name="hint_service_type">Especialidad (Ej. Eléctrico, Mecánico)</string>
     <string name="btn_save_profile">Guardar Perfil</string>
+    <string name="profile_details_title">Detalles del Perfil</string>
+    <string name="label_name">Nombre:</string>
+    <string name="label_email">Correo:</string>
+    <string name="label_phone">Teléfono:</string>
+    <string name="label_experience">Experiencia:</string>
+    <string name="label_specialty">Especialidad:</string>
+    <string name="btn_edit_profile">Editar Perfil</string>
+    <string name="years_suffix">%s años</string>
+    <string name="welcome_back">Hola de nuevo, %s</string>
+    <string name="btn_view_profile">Ver Mi Perfil</string>
 </resources>

@@ -44,6 +44,19 @@
         app:layout_constraintTop_toBottomOf="@id/tvWelcome" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnViewProfile"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/btn_view_profile"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:cornerRadius="16dp"
+        app:layout_constraintBottom_toTopOf="@id/btnStart" />
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnStart"
         android:layout_width="match_parent"
         android:layout_height="64dp"

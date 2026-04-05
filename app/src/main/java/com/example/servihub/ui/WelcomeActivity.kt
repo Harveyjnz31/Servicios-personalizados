@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.example.servihub.R
 import com.example.servihub.data.AppDatabase
 import com.example.servihub.data.UserRepository
 import com.example.servihub.databinding.ActivityWelcomeBinding
@@ -32,11 +33,13 @@ class WelcomeActivity : AppCompatActivity() {
     private fun setupObservers() {
         viewModel.userProfile.observe(this) { profile ->
             if (profile != null) {
-                binding.tvWelcome.text = "Hola, ${profile.fullName}"
-                binding.btnStart.text = "Ver mi Perfil"
+                binding.tvWelcome.text = getString(R.string.welcome_back, profile.fullName)
+                binding.btnViewProfile.visibility = View.VISIBLE
+                binding.btnStart.text = getString(R.string.btn_edit_profile)
             } else {
-                binding.tvWelcome.text = "Bienvenido, Profesional"
-                binding.btnStart.text = "Empezar Registro"
+                binding.tvWelcome.text = getString(R.string.welcome_title)
+                binding.btnViewProfile.visibility = View.GONE
+                binding.btnStart.text = getString(R.string.btn_start_registration)
             }
         }
     }
@@ -44,6 +47,9 @@ class WelcomeActivity : AppCompatActivity() {
     private fun setupListeners() {
         binding.btnStart.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
+        }
+        binding.btnViewProfile.setOnClickListener {
+            startActivity(Intent(this, ProfileDetailsActivity::class.java))
         }
     }
 }
