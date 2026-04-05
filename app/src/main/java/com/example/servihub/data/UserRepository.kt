@@ -19,5 +19,9 @@ class UserRepository(val userDao: UserDao) {
         userDao.updateProfile(profile)
     }
 
+    suspend fun getUserByEmail(email: String): UserProfile? = userDao.getUserByEmail(email)
+
+    suspend fun login(email: String, password: String): UserProfile? = userDao.login(email, password)
+
     val allProfessionals: Flow<List<UserProfile>> = userDao.getAllProfessionals()
 }

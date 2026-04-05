@@ -4,9 +4,9 @@
     <color name="primary">#000000</color> <!-- Negro Puro para elegancia -->
     <color name="primary_variant">#1A1A1A</color>
     <color name="secondary">#FF3B5C</color> <!-- Rojo TikTok (Energía) -->
-    <color name="accent">#4F46E5</color> <!-- Indigo Moderno -->
+    <color name="accent">#475569</color> <!-- Gris Ejecutivo (Slate 600) -->
 
-    <color name="background">#FAFAFA</color> <!-- Blanco Instagram (Limpio) -->
+    <color name="background">#F8FAFC</color> <!-- Blanco Grisáceo Ejecutivo -->
     <color name="background_light">#FFFFFF</color>
     <color name="surface">#FFFFFF</color>
     <color name="on_surface">#000000</color>
@@ -29,5 +29,5 @@
     <color name="grad_client_end">#F0F2F5</color>
 
     <color name="grad_pro_start">#FFFFFF</color>
-    <color name="grad_pro_end">#E0E7FF</color>
+    <color name="grad_pro_end">#F1F5F9</color>
 </resources>

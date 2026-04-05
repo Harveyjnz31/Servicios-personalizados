@@ -20,6 +20,7 @@ class RegisterViewModel(private val repository: UserRepository) : ViewModel() {
         role: String,
         name: String,
         email: String,
+        password: String,
         phone: String,
         age: String,
         city: String,
@@ -27,8 +28,13 @@ class RegisterViewModel(private val repository: UserRepository) : ViewModel() {
         service: String,
         exp: String
     ) {
-        if (name.isBlank() || email.isBlank() || phone.isBlank() || age.isBlank() || city.isBlank() || address.isBlank()) {
+        if (name.isBlank() || email.isBlank() || password.isBlank() || phone.isBlank() || age.isBlank() || city.isBlank() || address.isBlank()) {
             _error.value = "Por favor, completa todos los campos obligatorios"
+            return
+        }
+
+        if (password.length < 6) {
+            _error.value = "La contraseña debe tener al menos 6 caracteres"
             return
         }
 
@@ -52,6 +58,7 @@ class RegisterViewModel(private val repository: UserRepository) : ViewModel() {
         val profile = UserProfile(
             fullName = name,
             email = email,
+            password = password,
             phone = phone,
             age = ageInt,
             city = city,

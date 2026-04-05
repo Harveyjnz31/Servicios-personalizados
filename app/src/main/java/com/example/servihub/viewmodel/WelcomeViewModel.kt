@@ -25,10 +25,13 @@ class WelcomeViewModel(private val repository: UserRepository) : ViewModel() {
 
     val allProfessionals: LiveData<List<UserProfile>> = repository.allProfessionals.asLiveData()
 
-    fun login(email: String, onResult: (Boolean) -> Unit) {
+    fun login(email: String, password: String, onResult: (Boolean) -> Unit) {
         viewModelScope.launch {
-            val current = repository.userDao.getProfileOnce()
-            if (current != null && current.email.equals(email, ignoreCase = true)) {
+            val user = repository.login(email, password)
+            if (user != null) {
+                // In a real app, we might just store the session. 
+                // Here, we update the current profile in the DB to "log in"
+                repository.insert(user)
                 onResult(true)
             } else {
                 onResult(false)

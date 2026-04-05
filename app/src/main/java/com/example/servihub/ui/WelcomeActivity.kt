@@ -120,10 +120,10 @@ class WelcomeActivity : AppCompatActivity() {
                 val nextRole = if (profile.userRole == "CLIENT") "Profesional" else "Cliente"
                 switchMenuItem?.title = getString(R.string.menu_switch_role, nextRole)
             } else {
-                // Enabled drawer for guests to see Support/Help
+                // Guests: Lock drawer and hide menu button for a clean login screen
                 binding.root.setBackgroundResource(R.drawable.bg_gradient_guest)
-                binding.drawerLayout.setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED)
-                binding.btnMenu.visibility = View.VISIBLE
+                binding.drawerLayout.setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+                binding.btnMenu.visibility = View.GONE
                 binding.llServices.visibility = View.GONE
                 binding.ivMainIcon.visibility = View.VISIBLE
 
@@ -195,19 +195,20 @@ class WelcomeActivity : AppCompatActivity() {
 
         dialogBinding.btnSubmitLogin.setOnClickListener {
             val email = dialogBinding.etLoginEmail.text.toString()
-            if (email.isNotBlank()) {
-                viewModel.login(email) { success ->
+            val password = dialogBinding.etLoginPassword.text.toString()
+            if (email.isNotBlank() && password.isNotBlank()) {
+                viewModel.login(email, password) { success ->
                     runOnUiThread {
                         if (success) {
                             showToast(getString(R.string.login_success))
                             dialog.dismiss()
                         } else {
-                            showToast(getString(R.string.error_invalid_email))
+                            showToast("Correo o contraseña incorrectos")
                         }
                     }
                 }
             } else {
-                showToast(getString(R.string.error_empty_email))
+                showToast("Completa todos los campos")
             }
         }
         dialogBinding.btnForgotPassword.setOnClickListener {
@@ -266,16 +267,12 @@ class WelcomeActivity : AppCompatActivity() {
     }
 
     private fun setupNavigationDrawer() {
-        // Show menu button always for professional tool access (Support/Help)
-        binding.btnMenu.visibility = View.VISIBLE
-        binding.drawerLayout.setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED)
-        
         // Estilo formal para las barras del sistema
         window.statusBarColor = Color.parseColor("#FFFFFF")
         
-        // Navigation Bar styling with safety check
+        // Navigation Bar styling - Standardizing for visibility
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            window.navigationBarColor = Color.parseColor("#EEEEEE") // Gris claro para distinguir botones
+            window.navigationBarColor = Color.parseColor("#F1F5F9") // Gris Slate muy claro
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or 
                                                  View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
         } else {

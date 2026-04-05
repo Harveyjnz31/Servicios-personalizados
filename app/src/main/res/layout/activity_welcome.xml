@@ -23,13 +23,15 @@
         <!-- Header Icon / Illustration (Visible for Professionals/Guests) -->
         <ImageView
             android:id="@+id/ivMainIcon"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:src="@drawable/ic_launcher_foreground"
+            app:layout_constraintBottom_toTopOf="@id/llHeader"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/guideTop"
-            app:tint="@color/primary" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:tint="@color/accent" />
 
         <!-- Welcome Header -->
         <LinearLayout
@@ -39,8 +41,8 @@
             android:gravity="center"
             android:orientation="vertical"
             android:paddingHorizontal="32dp"
-            app:layout_constraintTop_toBottomOf="@id/ivMainIcon"
-            app:layout_goneMarginTop="8dp">
+            app:layout_constraintBottom_toTopOf="@id/actionsCard"
+            app:layout_constraintTop_toBottomOf="@id/ivMainIcon">
 
             <TextView
                 android:id="@+id/tvWelcome"
@@ -227,7 +229,7 @@
                         android:id="@+id/btnStart"
                         android:layout_width="match_parent"
                         android:layout_height="56dp"
-                        android:backgroundTint="@color/primary"
+                        android:backgroundTint="@color/accent"
                         android:text="@string/btn_get_started"
                         android:textColor="@color/white"
                         app:cornerRadius="12dp" />
@@ -247,7 +249,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
                         android:text="@string/btn_login"
-                        android:textColor="@color/secondary"
+                        android:textColor="@color/accent"
                         android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
@@ -275,6 +277,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginStart="64dp"
             android:layout_marginEnd="16dp"
+            android:visibility="gone"
             app:cardBackgroundColor="@color/accent"
             app:cardCornerRadius="20dp"
             app:cardElevation="0dp"
@@ -334,8 +337,8 @@
         android:layout_gravity="start"
         android:background="@color/white"
         app:headerLayout="@layout/nav_header"
-        app:itemIconTint="#444444"
-        app:itemTextColor="#222222"
+        app:itemIconTint="#475569"
+        app:itemTextColor="#334155"
         app:menu="@menu/nav_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

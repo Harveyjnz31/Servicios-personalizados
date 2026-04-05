@@ -9,6 +9,7 @@ data class UserProfile(
     val id: Int = 0,
     val fullName: String,
     val email: String,
+    val password: String = "123456", // Default password for migration
     val phone: String,
     val address: String,
     val city: String,

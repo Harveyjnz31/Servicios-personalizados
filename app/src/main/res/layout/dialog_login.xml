@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/login_title"
-        android:textColor="@color/white"
+        android:textColor="@color/text_main"
         android:textSize="20sp"
         android:textStyle="bold" />
 
@@ -29,8 +29,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:hint="@string/hint_login_email"
-        app:boxStrokeColor="@color/primary"
-        app:hintTextColor="@color/primary"
+        app:boxStrokeColor="@color/accent"
+        app:hintTextColor="@color/accent"
         android:textColorHint="@color/text_secondary">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -38,7 +38,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
-            android:textColor="@color/white" />
+            android:textColor="@color/text_main" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilLoginPassword"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Contraseña"
+        app:boxStrokeColor="@color/accent"
+        app:hintTextColor="@color/accent"
+        app:passwordToggleEnabled="true"
+        android:textColorHint="@color/text_secondary">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etLoginPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:textColor="@color/text_main" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
@@ -46,11 +66,10 @@
         style="@style/Widget.MaterialComponents.Button"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/bg_button_gradient"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/accent"
         android:text="@string/btn_action_login"
         android:textColor="@color/white"
-        app:backgroundTint="@null"
         app:cornerRadius="12dp" />
 
     <com.google.android.material.button.MaterialButton

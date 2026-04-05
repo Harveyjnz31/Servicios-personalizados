@@ -1,7 +1,9 @@
 package com.example.servihub.ui
 
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -26,6 +28,14 @@ class ProfileDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Estilo formal para las barras del sistema
+        window.statusBarColor = Color.parseColor("#FFFFFF")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            window.navigationBarColor = Color.parseColor("#F1F5F9")
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or 
+                                                 View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+        }
 
         setupObservers()
         

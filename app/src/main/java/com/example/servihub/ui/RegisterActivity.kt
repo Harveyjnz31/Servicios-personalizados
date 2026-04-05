@@ -61,6 +61,7 @@ class RegisterActivity : AppCompatActivity() {
             val role = if (binding.rbProfessional.isChecked) "PROFESSIONAL" else "CLIENT"
             val name = binding.etName.text.toString()
             val email = binding.etEmail.text.toString()
+            val password = binding.etPassword.text.toString()
             val phone = binding.etPhone.text.toString()
             val age = binding.etAge.text.toString()
             val city = binding.etCity.text.toString()
@@ -68,7 +69,7 @@ class RegisterActivity : AppCompatActivity() {
             val service = binding.etService.text.toString()
             val exp = binding.etExp.text.toString()
 
-            viewModel.registerUser(role, name, email, phone, age, city, address, service, exp)
+            viewModel.registerUser(role, name, email, password, phone, age, city, address, service, exp)
         }
     }
 }

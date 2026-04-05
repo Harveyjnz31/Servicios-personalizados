@@ -1,5 +1,7 @@
 package com.example.servihub.ui
 
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +24,14 @@ class ServicesListActivity : AppCompatActivity() {
         binding = ActivityServicesListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Estilo formal para las barras del sistema
+        window.statusBarColor = Color.parseColor("#FFFFFF")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            window.navigationBarColor = Color.parseColor("#F1F5F9")
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or 
+                                                 View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+        }
+
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         binding.toolbar.setNavigationOnClickListener { finish() }
@@ -37,24 +47,19 @@ class ServicesListActivity : AppCompatActivity() {
 
     private fun setupRecyclerView() {
         adapter = ProfessionalAdapter(emptyList())
-        binding.rvProfessionals.layoutManager = LinearLayoutManager(this)
+        binding.rvProfessionals.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         binding.rvProfessionals.adapter = adapter
     }
 
     private fun setupObservers() {
         viewModel.allProfessionals.observe(this) { professionals ->
-            if (professionals.isNullOrEmpty()) {
-                binding.tvEmpty.visibility = View.VISIBLE
-                binding.rvProfessionals.visibility = View.GONE
-            } else {
-                binding.tvEmpty.visibility = View.GONE
-                binding.rvProfessionals.visibility = View.VISIBLE
-                filterList(professionals)
-            }
+            // Siempre llamamos a filterList para que se muestren al menos los datos simulados
+            // si la base de datos está vacía.
+            filterList(professionals ?: emptyList())
         }
 
         binding.chipGroup.setOnCheckedChangeListener { _, checkedId ->
-            viewModel.allProfessionals.value?.let { filterList(it) }
+            filterList(viewModel.allProfessionals.value ?: emptyList())
         }
     }
 

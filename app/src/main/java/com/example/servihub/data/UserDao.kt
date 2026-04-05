@@ -12,8 +12,11 @@ interface UserDao {
     @Query("SELECT * FROM user_profile LIMIT 1")
     fun getProfile(): Flow<UserProfile?>
 
-    @Query("SELECT * FROM user_profile LIMIT 1")
-    suspend fun getProfileOnce(): UserProfile?
+    @Query("SELECT * FROM user_profile WHERE email = :email AND password = :password LIMIT 1")
+    suspend fun login(email: String, password: String): UserProfile?
+
+    @Query("SELECT * FROM user_profile WHERE email = :email LIMIT 1")
+    suspend fun getUserByEmail(email: String): UserProfile?
 
     @Query("DELETE FROM user_profile")
     suspend fun clearProfile()
