@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">ServiHub</string>
+    <string name="welcome_title">Bienvenido, Profesional</string>
+    <string name="welcome_subtitle">Únete a la mayor red de servicios y haz crecer tu negocio.</string>
+    <string name="btn_start_registration">Empezar Registro</string>
+    <string name="registration_title">Crea tu Perfil</string>
+    <string name="hint_full_name">Nombre Completo</string>
+    <string name="hint_email">Correo Electrónico</string>
+    <string name="hint_phone">Teléfono de contacto</string>
+    <string name="hint_experience">Años de experiencia</string>
+    <string name="hint_service_type">Especialidad (Ej. Eléctrico, Mecánico)</string>
+    <string name="btn_save_profile">Guardar Perfil</string>
+</resources>
