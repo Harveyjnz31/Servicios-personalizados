@@ -1,5 +1,6 @@
 package com.example.servihub.ui
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,14 +32,22 @@ class ProfessionalAdapter(private var professionals: List<UserProfile>) :
         holder.service.text = professional.serviceType
         holder.city.text = professional.city
         
-        // Use real rating if available, otherwise generate a realistic mock rating
         val displayRating = if (professional.rating > 0) {
             professional.rating.toString()
         } else {
-            // Mock rating between 4.0 and 5.0 for professional look
             String.format("%.1f", 4.0 + Random().nextFloat())
         }
         holder.rating.text = displayRating
+
+        holder.itemView.setOnClickListener {
+            val intent = Intent(holder.itemView.context, ProfessionalDetailActivity::class.java).apply {
+                putExtra("PRO_NAME", professional.fullName)
+                putExtra("PRO_SPECIALTY", professional.serviceType)
+                putExtra("PRO_RATING", displayRating)
+                putExtra("PRO_LOCATION", professional.city)
+            }
+            holder.itemView.context.startActivity(intent)
+        }
     }
 
     override fun getItemCount() = professionals.size

@@ -36,6 +36,26 @@
             android:exported="false"
             android:label="@string/title_services_list" />
 
+        <activity
+            android:name=".ui.RequestsListActivity"
+            android:exported="false"
+            android:label="Bolsa de Trabajo" />
+
+        <activity
+            android:name=".ui.PostRequestActivity"
+            android:exported="false"
+            android:label="Publicar Solicitud" />
+
+        <activity
+            android:name=".ui.ProfessionalDetailActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ServiHub" />
+
+        <activity
+            android:name=".ui.ChatActivity"
+            android:exported="false"
+            android:label="Chat" />
+
     </application>
 
 </manifest>
