@@ -1,0 +1,87 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+
+    <!-- Professional (Left) -->
+    <path
+        android:pathData="M72,62c-11,0 -20,9 -20,20s9,20 20,20s20,-9 20,-20S83,62 72,62z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="52"
+                android:startY="62"
+                android:endX="92"
+                android:endY="102"
+                android:type="linear">
+                <item android:color="#52525B" android:offset="0" />
+                <item android:color="#27272A" android:offset="1" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <path
+        android:pathData="M72,105c-18,0 -35,12 -35,35v15h38l12,-15l15,10l12,-12l-15,-15l-12,12z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="37"
+                android:startY="105"
+                android:endX="90"
+                android:endY="155"
+                android:type="linear">
+                <item android:color="#52525B" android:offset="0" />
+                <item android:color="#27272A" android:offset="1" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- Collar/Tie Area (White highlight as in reference) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M68,105h8l-4,6z" />
+    <path
+        android:fillColor="#3F3F46"
+        android:pathData="M70,112h4l-2,12z" />
+
+    <!-- Client (Right) -->
+    <path
+        android:pathData="M128,62c-11,0 -20,9 -20,20s9,20 20,20s20,-9 20,-20S139,62 128,62z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="108"
+                android:startY="62"
+                android:endX="148"
+                android:endY="102"
+                android:type="linear">
+                <item android:color="#A1A1AA" android:offset="0" />
+                <item android:color="#71717A" android:offset="1" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <path
+        android:pathData="M128,105c18,0 35,12 35,35v15h-38l-12,-15l-15,10l-12,-12l15,-15l12,12z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="100"
+                android:startY="105"
+                android:endX="163"
+                android:endY="155"
+                android:type="linear">
+                <item android:color="#A1A1AA" android:offset="0" />
+                <item android:color="#71717A" android:offset="1" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Handshake Details (Matching the interlaced look) -->
+    <path
+        android:pathData="M95,125c0,0 5,8 10,8s10,-8 10,-8"
+        android:strokeColor="#52525B"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"/>
+    <path
+        android:pathData="M98,128l4,4l4,-4"
+        android:strokeColor="#A1A1AA"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"/>
+
+</vector>

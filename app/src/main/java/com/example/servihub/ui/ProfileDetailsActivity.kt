@@ -21,7 +21,8 @@ class ProfileDetailsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProfileDetailsBinding
     private val viewModel: WelcomeViewModel by viewModels {
-        ViewModelFactory(UserRepository(AppDatabase.getDatabase(this).userDao()))
+        val db = AppDatabase.getDatabase(this)
+        ViewModelFactory(UserRepository(db.userDao(), db.reviewDao()))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +41,7 @@ class ProfileDetailsActivity : AppCompatActivity() {
         setupObservers()
         
         binding.btnEdit.setOnClickListener {
-            // Future implementation for editing profile
+            startActivity(Intent(this, EditProfileActivity::class.java))
         }
     }
 

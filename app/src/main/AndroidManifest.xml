@@ -28,6 +28,10 @@
             android:exported="false" />
 
         <activity
+            android:name=".ui.EditProfileActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".ui.ServicesListActivity"
             android:exported="false"
             android:label="@string/title_services_list" />

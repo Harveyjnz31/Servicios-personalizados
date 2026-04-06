@@ -22,7 +22,7 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val database = AppDatabase.getDatabase(this)
-        val repository = UserRepository(database.userDao())
+        val repository = UserRepository(database.userDao(), database.reviewDao())
         val factory = ViewModelFactory(repository)
         
         viewModel = ViewModelProvider(this, factory)[RegisterViewModel::class.java]

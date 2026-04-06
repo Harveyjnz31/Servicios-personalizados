@@ -37,7 +37,7 @@ class ServicesListActivity : AppCompatActivity() {
         binding.toolbar.setNavigationOnClickListener { finish() }
 
         val database = AppDatabase.getDatabase(this)
-        val repository = UserRepository(database.userDao())
+        val repository = UserRepository(database.userDao(), database.reviewDao())
         val factory = ViewModelFactory(repository)
         viewModel = ViewModelProvider(this, factory)[WelcomeViewModel::class.java]
 

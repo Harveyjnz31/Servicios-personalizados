@@ -4,12 +4,14 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.servihub.model.Review
 import com.example.servihub.model.UserProfile
 
-@Database(entities = [UserProfile::class], version = 3, exportSchema = false)
+@Database(entities = [UserProfile::class, Review::class], version = 5, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun userDao(): UserDao
+    abstract fun reviewDao(): ReviewDao
 
     companion object {
         @Volatile

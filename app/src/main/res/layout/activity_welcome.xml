@@ -23,15 +23,16 @@
         <!-- Header Icon / Illustration (Visible for Professionals/Guests) -->
         <ImageView
             android:id="@+id/ivMainIcon"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:src="@drawable/ic_launcher_foreground"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_logo_servihub"
+            android:contentDescription="Logo Principal de ServiHub"
             app:layout_constraintBottom_toTopOf="@id/llHeader"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            app:tint="@color/accent" />
+            app:layout_constraintVertical_bias="0.1"
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <!-- Welcome Header -->
         <LinearLayout
@@ -41,28 +42,31 @@
             android:gravity="center"
             android:orientation="vertical"
             android:paddingHorizontal="32dp"
-            app:layout_constraintBottom_toTopOf="@id/actionsCard"
-            app:layout_constraintTop_toBottomOf="@id/ivMainIcon">
+            android:paddingTop="0dp"
+            android:paddingBottom="4dp"
+            app:layout_constraintBottom_toTopOf="@id/llServices"
+            app:layout_constraintTop_toBottomOf="@id/ivMainIcon"
+            app:layout_constraintVertical_bias="0.0">
 
             <TextView
                 android:id="@+id/tvWelcome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
                 android:text="@string/welcome_title"
                 android:textColor="@color/text_main"
-                android:textSize="22sp"
+                android:textSize="26sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvSubtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="2dp"
                 android:gravity="center"
                 android:text="@string/welcome_subtitle"
                 android:textColor="@color/text_secondary"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:visibility="gone" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSwitchRoleQuick"
@@ -74,16 +78,19 @@
                 android:insetBottom="0dp"
                 android:paddingHorizontal="16dp"
                 android:text="Modo: Cliente"
-                android:textColor="@color/accent"
+                android:textColor="#475569"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:visibility="gone"
                 app:cornerRadius="18dp"
-                app:icon="@drawable/ic_menu"
+                app:icon="@drawable/ic_sync"
                 app:iconSize="14dp"
                 app:iconPadding="8dp"
-                app:iconTint="@color/accent"
-                tools:visibility="visible" />
+                app:iconTint="#475569"
+                app:backgroundTint="#F1F5F9"
+                app:strokeColor="#CBD5E1"
+                app:strokeWidth="1dp"
+                tools:visibility="gone" />
         </LinearLayout>
 
         <!-- Services Section (Discovery Style) -->
@@ -94,8 +101,9 @@
             android:layout_marginTop="8dp"
             android:orientation="vertical"
             android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@id/actionsCard"
-            app:layout_constraintTop_toBottomOf="@id/llHeader">
+            app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
+            app:layout_constraintTop_toBottomOf="@id/llHeader"
+            tools:visibility="visible">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -130,7 +138,7 @@
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:clipToPadding="false"
                 android:paddingHorizontal="16dp"
                 android:scrollbars="none">
@@ -146,7 +154,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:paddingHorizontal="24dp">
 
                 <TextView
@@ -188,6 +196,94 @@
             </androidx.core.widget.NestedScrollView>
         </LinearLayout>
 
+        <!-- Professional Requests Section (Requests Feed) -->
+        <LinearLayout
+            android:id="@+id/llRequests"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="0dp"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
+            app:layout_constraintTop_toBottomOf="@id/llHeader"
+            tools:visibility="gone">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="24dp">
+
+                <TextView
+                    android:id="@+id/tvRequestsTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Solicitudes de Trabajo"
+                    android:textColor="@color/text_main"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/btnViewAllRequests"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:text="Ver todas"
+                    android:textColor="@color/accent"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="4dp"
+                    android:clickable="true"
+                    android:focusable="true" />
+            </RelativeLayout>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:clipToPadding="false"
+                android:paddingHorizontal="16dp"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:id="@+id/llRequestsList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" />
+            </HorizontalScrollView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingHorizontal="24dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Resumen Semanal"
+                    android:textColor="@color/text_main"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginTop="8dp"
+                android:clipToPadding="false"
+                android:paddingHorizontal="24dp">
+
+                <LinearLayout
+                    android:id="@+id/llProfessionalSummary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+            </androidx.core.widget.NestedScrollView>
+        </LinearLayout>
+
         <!-- Bottom Action Card -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/actionsCard"
@@ -195,11 +291,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="16dp"
             app:cardBackgroundColor="@color/surface"
             app:cardCornerRadius="16dp"
             app:cardElevation="0dp"
-            app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:strokeColor="@color/divider"
             app:strokeWidth="1dp">
 
@@ -255,18 +351,67 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Menu Button (Hamburguesa) -->
+        <!-- Top Action Bar (Professional Mode Switcher) -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvTopActions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:visibility="gone"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="#F8FAFC"
+            app:strokeWidth="1dp"
+            app:strokeColor="#E2E8F0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible">
+
+            <LinearLayout
+                android:id="@+id/btnSwitchRoleTop"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingHorizontal="12dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:id="@+id/ivRoleIcon"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/ic_sync"
+                    app:tint="#475569" />
+
+                <TextView
+                    android:id="@+id/tvRoleStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Modo: Cliente"
+                    android:textColor="#475569"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Menu Button (Hamburguesa) - Moved to left and styled -->
         <ImageButton
             android:id="@+id/btnMenu"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_margin="12dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
+            android:background="@drawable/bg_item_professional"
             android:src="@drawable/ic_menu"
+            android:padding="8dp"
+            android:scaleType="centerInside"
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/black"
+            app:tint="#475569"
             tools:visibility="visible" />
 
         <!-- Ad Banner (Marquee style) -->
@@ -308,11 +453,11 @@
             android:id="@+id/bottomNavigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/surface"
+            android:background="#F8FAFC"
             android:visibility="gone"
-            app:elevation="16dp"
-            app:itemIconTint="@color/accent"
-            app:itemTextColor="@color/text_main"
+            app:elevation="8dp"
+            app:itemIconTint="#475569"
+            app:itemTextColor="#475569"
             app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:menu="@menu/bottom_nav_menu"
@@ -323,7 +468,7 @@
             android:id="@+id/bottomNavDivider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/divider"
+            android:background="#E2E8F0"
             android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
             tools:visibility="visible" />

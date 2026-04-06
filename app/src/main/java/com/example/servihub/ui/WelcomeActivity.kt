@@ -43,7 +43,7 @@ class WelcomeActivity : AppCompatActivity() {
         binding.root.setBackgroundResource(R.drawable.bg_gradient_guest)
 
         val database = AppDatabase.getDatabase(this)
-        val repository = UserRepository(database.userDao())
+        val repository = UserRepository(database.userDao(), database.reviewDao())
         val factory = ViewModelFactory(repository)
         viewModel = ViewModelProvider(this, factory)[WelcomeViewModel::class.java]
 
@@ -59,51 +59,63 @@ class WelcomeActivity : AppCompatActivity() {
             val headerEmail = headerView.findViewById<TextView>(R.id.nav_header_email)
             val headerImage = headerView.findViewById<ImageView>(R.id.nav_header_imageView)
 
-            // Dynamic visibility of menu groups
-            binding.navView.menu.setGroupVisible(R.id.group_user_actions, true)
-            binding.navView.menu.findItem(R.id.nav_more_section).isVisible = true
-            
-            // Sync bottom divider visibility
-            binding.bottomNavDivider.visibility = if (profile != null) View.VISIBLE else View.GONE
+                // Dynamic visibility of menu groups
+                binding.navView.menu.setGroupVisible(R.id.group_user_actions, true)
+                binding.navView.menu.findItem(R.id.nav_more_section).isVisible = true
+                
+                // Sync bottom divider visibility
+                binding.bottomNavDivider.visibility = if (profile != null) View.VISIBLE else View.GONE
 
-            if (profile != null) {
-                // Enabled drawer for logged users
-                binding.drawerLayout.setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED)
-                binding.btnMenu.visibility = View.VISIBLE
+                if (profile != null) {
+                    // Enabled drawer for logged users
+                    binding.drawerLayout.setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED)
+                    binding.btnMenu.visibility = View.VISIBLE
 
-                // Set click listeners for profile header elements
-                val openProfile = View.OnClickListener {
-                    startActivity(Intent(this, ProfileDetailsActivity::class.java))
-                    binding.drawerLayout.closeDrawer(GravityCompat.START)
+                    // Set click listeners for profile header elements
+                    val openProfile = View.OnClickListener {
+                        startActivity(Intent(this, ProfileDetailsActivity::class.java))
+                        binding.drawerLayout.closeDrawer(GravityCompat.START)
+                    }
+                    headerName.setOnClickListener(openProfile)
+                    headerEmail.setOnClickListener(openProfile)
+                    headerImage.setOnClickListener(openProfile)
+
+                    val roleText = if (profile.userRole == "PROFESSIONAL") "Profesional" else "Cliente"
+                    
+                    // Mantenemos el título como ServiHub para limpieza visual
+                    binding.tvWelcome.text = getString(R.string.welcome_title)
+                    binding.tvSubtitle.visibility = View.VISIBLE
+                    
+                    binding.cvTopActions.visibility = View.VISIBLE
+                    binding.tvRoleStatus.text = "Modo: $roleText"
+                    
+                    binding.btnMenu.visibility = View.VISIBLE
+                binding.btnSwitchRoleQuick.visibility = View.GONE
+
+                binding.btnSwitchRoleTop.setOnClickListener {
+                    switchRole()
                 }
-                headerName.setOnClickListener(openProfile)
-                headerEmail.setOnClickListener(openProfile)
-                headerImage.setOnClickListener(openProfile)
-
-                val roleText = if (profile.userRole == "PROFESSIONAL") "Profesional" else "Cliente"
-                
-                val welcomeRes = if (isJustRegistered) R.string.welcome_new else R.string.welcome_back
-                binding.tvWelcome.text = getString(welcomeRes, profile.fullName)
-                
-                binding.tvSubtitle.visibility = View.GONE
-                binding.btnSwitchRoleQuick.visibility = View.VISIBLE
-                binding.btnSwitchRoleQuick.text = "Modo: $roleText"
                 
                 binding.llLoggedIn.visibility = View.VISIBLE
                 binding.llGuest.visibility = View.GONE
+                binding.actionsCard.visibility = View.GONE
                 binding.bottomNavigation.visibility = View.VISIBLE
 
                 // Show services list for clients, show icon for professionals
                 if (profile.userRole == "CLIENT") {
                     binding.root.setBackgroundResource(R.drawable.bg_gradient_client)
                     binding.llServices.visibility = View.VISIBLE
+                    binding.llRequests.visibility = View.GONE
                     binding.ivMainIcon.visibility = View.GONE
                     setupExampleProfessionals()
                     setupRecentReviews()
                 } else {
                     binding.root.setBackgroundResource(R.drawable.bg_gradient_professional)
                     binding.llServices.visibility = View.GONE
-                    binding.ivMainIcon.visibility = View.VISIBLE
+                    binding.llRequests.visibility = View.VISIBLE
+                    binding.ivMainIcon.visibility = View.GONE
+                    setupExampleRequests()
+                    setupProfessionalSummary()
                 }
                 
                 headerName.text = profile.fullName
@@ -130,10 +142,14 @@ class WelcomeActivity : AppCompatActivity() {
                 binding.tvWelcome.text = getString(R.string.welcome_title)
                 binding.tvSubtitle.visibility = View.VISIBLE
                 binding.tvSubtitle.text = getString(R.string.welcome_subtitle)
+                
+                binding.cvTopActions.visibility = View.GONE
+                binding.btnMenu.visibility = View.GONE
                 binding.btnSwitchRoleQuick.visibility = View.GONE
                 
                 binding.llLoggedIn.visibility = View.GONE
                 binding.llGuest.visibility = View.VISIBLE
+                binding.actionsCard.visibility = View.VISIBLE
                 binding.bottomNavigation.visibility = View.GONE
                 
                 headerName.text = getString(R.string.nav_header_title)
@@ -263,6 +279,73 @@ class WelcomeActivity : AppCompatActivity() {
             itemView.findViewById<TextView>(R.id.tvReviewText).text = review.second
             itemView.findViewById<TextView>(R.id.tvReviewTime).text = review.third
             binding.llRecentReviews.addView(itemView)
+        }
+    }
+
+    private fun setupExampleRequests() {
+        binding.llRequestsList.removeAllViews()
+        val inflater = LayoutInflater.from(this)
+        
+        val requests = listOf(
+            mapOf(
+                "title" to "Reparación de Cortocircuito",
+                "specialty" to "ELECTRICIDAD",
+                "description" to "Se requiere revisión de tablero principal por fallas constantes en el sector norte.",
+                "location" to "Zona Norte"
+            ),
+            mapOf(
+                "title" to "Instalación de Grifería",
+                "specialty" to "PLOMERÍA",
+                "description" to "Cambio de llaves en baño principal y cocina. Materiales ya comprados.",
+                "location" to "Centro"
+            ),
+            mapOf(
+                "title" to "Limpieza Post-Obra",
+                "specialty" to "LIMPIEZA",
+                "description" to "Limpieza profunda de departamento de 3 habitaciones tras remodelación.",
+                "location" to "Residencial"
+            ),
+            mapOf(
+                "title" to "Pintura de Fachada",
+                "specialty" to "PINTURA",
+                "description" to "Pintar exterior de casa de dos pisos. Se requiere andamio propio.",
+                "location" to "Sur"
+            ),
+            mapOf(
+                "title" to "Mantenimiento Aire",
+                "specialty" to "TÉCNICO",
+                "description" to "Limpieza de filtros y recarga de gas para 2 unidades Split de 12000 BTU.",
+                "location" to "Industrial"
+            )
+        )
+
+        for (request in requests) {
+            val itemView = inflater.inflate(R.layout.item_request_example, binding.llRequestsList, false)
+            itemView.findViewById<TextView>(R.id.tvRequestTitle).text = request["title"]
+            itemView.findViewById<TextView>(R.id.tvRequestCategory).text = request["specialty"]
+            itemView.findViewById<TextView>(R.id.tvRequestDescription).text = request["description"]
+            itemView.findViewById<TextView>(R.id.tvRequestLocation).text = request["location"]
+            binding.llRequestsList.addView(itemView)
+        }
+    }
+
+    private fun setupProfessionalSummary() {
+        binding.llProfessionalSummary.removeAllViews()
+        val inflater = LayoutInflater.from(this)
+
+        val summaries = listOf(
+            Triple("Ganancias Totales", "$1,250.00", "Este mes"),
+            Triple("Trabajos Completados", "14", "Últimos 30 días"),
+            Triple("Calificación Promedio", "4.9", "De 42 reseñas"),
+            Triple("Nuevas Solicitudes", "5", "Pendientes de revisión")
+        )
+
+        for (summary in summaries) {
+            val itemView = inflater.inflate(R.layout.item_review_notification, binding.llProfessionalSummary, false)
+            itemView.findViewById<TextView>(R.id.tvReviewAuthor).text = summary.first
+            itemView.findViewById<TextView>(R.id.tvReviewText).text = summary.second
+            itemView.findViewById<TextView>(R.id.tvReviewTime).text = summary.third
+            binding.llProfessionalSummary.addView(itemView)
         }
     }
 

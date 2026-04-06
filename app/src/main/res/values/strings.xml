@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">ServiHub</string>
-    <string name="welcome_title">ServiHub AI</string>
+    <string name="welcome_title">ServiHub</string>
     <string name="welcome_subtitle">Conectando tus necesidades con soluciones inteligentes.</string>
     <string name="btn_login">Iniciar Sesión</string>
     <string name="btn_get_started">Comenzar Ahora</string>
@@ -12,7 +12,7 @@
     <string name="login_subtitle">Ingresa tu correo para continuar</string>
     <string name="hint_login_email">Correo electrónico registrado</string>
     <string name="btn_action_login">Entrar</string>
-    <string name="btn_forgot_password">¿Olvidaste tu correo?</string>
+    <string name="btn_forgot_password">¿Olvidaste tu contraseña?</string>
     <string name="forgot_password_message">Por seguridad, contacta a soporte para recuperar tu acceso: soporte@servihub.com</string>
 
     <string name="registration_title">Crea tu Perfil</string>
@@ -73,4 +73,7 @@
     <string name="error_empty_email">Por favor, ingresa un correo</string>
     <string name="login_success">Sesión iniciada correctamente</string>
     <string name="btn_start_registration" translatable="false">Empezar Registro</string>
+    <string name="label_full_name">Nombre completo</string>
+    <string name="btn_save">Guardar cambios</string>
+    <string name="logo_content_description">Logo de ServiHub</string>
 </resources>
