@@ -22,7 +22,7 @@ class ProfileDetailsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfileDetailsBinding
     private val viewModel: WelcomeViewModel by viewModels {
         val db = AppDatabase.getDatabase(this)
-        ViewModelFactory(UserRepository(db.userDao(), db.reviewDao()))
+        ViewModelFactory(UserRepository(db.userDao(), db.reviewDao(), db.workRequestDao(), db.favoriteDao(), db.chatDao()))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

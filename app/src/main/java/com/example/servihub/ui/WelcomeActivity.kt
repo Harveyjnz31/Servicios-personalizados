@@ -41,7 +41,7 @@ class WelcomeActivity : AppCompatActivity() {
         binding.root.setBackgroundResource(R.drawable.bg_gradient_guest)
 
         val database = AppDatabase.getDatabase(this)
-        val repository = UserRepository(database.userDao(), database.reviewDao(), database.workRequestDao())
+        val repository = UserRepository(database.userDao(), database.reviewDao(), database.workRequestDao(), database.favoriteDao(), database.chatDao())
         val factory = ViewModelFactory(repository)
         viewModel = ViewModelProvider(this, factory)[WelcomeViewModel::class.java]
 
@@ -52,98 +52,102 @@ class WelcomeActivity : AppCompatActivity() {
 
     private fun setupObservers() {
         viewModel.userProfile.observe(this) { profile ->
-            val headerView = binding.navView.getHeaderView(0)
-            val headerName = headerView.findViewById<TextView>(R.id.nav_header_name)
-            val headerEmail = headerView.findViewById<TextView>(R.id.nav_header_email)
-            val headerImage = headerView.findViewById<ImageView>(R.id.nav_header_imageView)
+            updateUI(profile)
+        }
 
-                binding.navView.menu.setGroupVisible(R.id.group_user_actions, true)
-                binding.navView.menu.findItem(R.id.nav_more_section).isVisible = true
-                binding.bottomNavDivider.visibility = if (profile != null) View.VISIBLE else View.GONE
-
-                if (profile != null) {
-                    binding.drawerLayout.setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED)
-                    binding.btnMenu.visibility = View.VISIBLE
-
-                    val openProfile = View.OnClickListener {
-                        startActivity(Intent(this, ProfileDetailsActivity::class.java))
-                        binding.drawerLayout.closeDrawer(GravityCompat.START)
-                    }
-                    headerName.setOnClickListener(openProfile)
-                    headerEmail.setOnClickListener(openProfile)
-                    headerImage.setOnClickListener(openProfile)
-
-                    val roleText = if (profile.userRole == "PROFESSIONAL") "Profesional" else "Cliente"
-                    binding.tvWelcome.text = getString(R.string.welcome_title)
-                    binding.tvSubtitle.visibility = View.VISIBLE
-                    binding.cvTopActions.visibility = View.VISIBLE
-                    binding.tvRoleStatus.text = "Modo: $roleText"
-                    binding.btnMenu.visibility = View.VISIBLE
-                    binding.btnSwitchRoleQuick.visibility = View.GONE
-
-                    binding.btnSwitchRoleTop.setOnClickListener { switchRole() }
-                    
-                    binding.llLoggedIn.visibility = View.VISIBLE
-                    binding.llGuest.visibility = View.GONE
-                    binding.actionsCard.visibility = View.GONE
-                    binding.bottomNavigation.visibility = View.VISIBLE
-
-                    if (profile.userRole == "CLIENT") {
-                        binding.root.setBackgroundResource(R.drawable.bg_gradient_client)
-                        binding.llServices.visibility = View.VISIBLE
-                        binding.llRequests.visibility = View.GONE
-                        binding.ivMainIcon.visibility = View.GONE
-                        setupExampleProfessionals()
-                        setupRecentReviews()
-                    } else {
-                        binding.root.setBackgroundResource(R.drawable.bg_gradient_professional)
-                        binding.llServices.visibility = View.GONE
-                        binding.llRequests.visibility = View.VISIBLE
-                        binding.ivMainIcon.visibility = View.GONE
-                        // Observar solicitudes reales de la DB
-                        viewModel.allWorkRequests.observe(this) { requests ->
-                            if (requests.isEmpty()) {
-                                seedMockRequests()
-                            } else {
-                                displayRequests(requests)
-                            }
-                        }
-                        setupProfessionalSummary()
-                    }
-                    
-                    headerName.text = profile.fullName
-                    headerEmail.text = "${profile.email} - $roleText"
-                    
-                    if (profile.userRole == "PROFESSIONAL") {
-                        headerImage.setImageResource(android.R.drawable.ic_menu_manage)
-                    } else {
-                        headerImage.setImageResource(android.R.drawable.ic_menu_myplaces)
-                    }
-
-                    val switchMenuItem = binding.navView.menu.findItem(R.id.nav_switch_role)
-                    val nextRole = if (profile.userRole == "CLIENT") "Profesional" else "Cliente"
-                    switchMenuItem?.title = getString(R.string.menu_switch_role, nextRole)
-            } else {
-                binding.root.setBackgroundResource(R.drawable.bg_gradient_guest)
-                binding.drawerLayout.setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-                binding.btnMenu.visibility = View.GONE
-                binding.llServices.visibility = View.GONE
-                binding.ivMainIcon.visibility = View.VISIBLE
-
-                binding.tvWelcome.text = getString(R.string.welcome_title)
-                binding.tvSubtitle.visibility = View.VISIBLE
-                binding.tvSubtitle.text = getString(R.string.welcome_subtitle)
-                
-                binding.cvTopActions.visibility = View.GONE
-                binding.llLoggedIn.visibility = View.GONE
-                binding.llGuest.visibility = View.VISIBLE
-                binding.actionsCard.visibility = View.VISIBLE
-                binding.bottomNavigation.visibility = View.GONE
-                
-                headerName.text = getString(R.string.nav_header_title)
-                headerEmail.text = getString(R.string.nav_header_subtitle)
-                headerImage.setImageResource(android.R.drawable.sym_def_app_icon)
+        viewModel.allWorkRequests.observe(this) { requests ->
+            val profile = viewModel.userProfile.value
+            if (profile?.userRole == "PROFESSIONAL") {
+                if (requests.isEmpty()) {
+                    seedMockRequests()
+                } else {
+                    displayRequests(requests)
+                }
             }
+        }
+    }
+
+    private fun updateUI(profile: com.example.servihub.model.UserProfile?) {
+        val headerView = binding.navView.getHeaderView(0)
+        val headerName = headerView.findViewById<TextView>(R.id.nav_header_name)
+        val headerEmail = headerView.findViewById<TextView>(R.id.nav_header_email)
+        val headerImage = headerView.findViewById<ImageView>(R.id.nav_header_imageView)
+
+        if (profile != null) {
+            // MODO LOGUEADO
+            binding.drawerLayout.setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED)
+            binding.btnMenu.visibility = View.VISIBLE
+            binding.bottomNavDivider.visibility = View.VISIBLE
+            binding.bottomNavigation.visibility = View.VISIBLE
+            binding.cvTopActions.visibility = View.VISIBLE
+            binding.llLoggedIn.visibility = View.VISIBLE
+            binding.llGuest.visibility = View.GONE
+            binding.actionsCard.visibility = View.GONE
+            binding.ivMainIcon.visibility = View.GONE
+            binding.tvSubtitle.visibility = View.VISIBLE
+
+            val roleText = if (profile.userRole == "PROFESSIONAL") "Profesional" else "Cliente"
+            binding.tvRoleStatus.text = "Modo: $roleText"
+            binding.tvWelcome.text = getString(R.string.welcome_title)
+
+            if (profile.userRole == "CLIENT") {
+                binding.root.setBackgroundResource(R.drawable.bg_gradient_client)
+                binding.llServices.visibility = View.VISIBLE
+                binding.llRequests.visibility = View.GONE
+                setupExampleProfessionals()
+                setupRecentReviews()
+            } else {
+                binding.root.setBackgroundResource(R.drawable.bg_gradient_professional)
+                binding.llServices.visibility = View.GONE
+                binding.llRequests.visibility = View.VISIBLE
+                setupProfessionalSummary()
+            }
+
+            headerName.text = profile.fullName
+            headerEmail.text = "${profile.email} - $roleText"
+            headerImage.setImageResource(if (profile.userRole == "PROFESSIONAL") android.R.drawable.ic_menu_manage else android.R.drawable.ic_menu_myplaces)
+
+            binding.navView.menu.setGroupVisible(R.id.group_user_actions, true)
+            binding.navView.menu.findItem(R.id.nav_more_section).isVisible = true
+            val switchMenuItem = binding.navView.menu.findItem(R.id.nav_switch_role)
+            val nextRole = if (profile.userRole == "CLIENT") "Profesional" else "Cliente"
+            switchMenuItem?.title = getString(R.string.menu_switch_role, nextRole)
+
+            binding.btnSwitchRoleTop.setOnClickListener { switchRole() }
+        } else {
+            // MODO GUEST (Logout)
+            binding.root.setBackgroundResource(R.drawable.bg_gradient_guest)
+            binding.drawerLayout.setDrawerLockMode(androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            
+            // Ocultar TODO lo relacionado a usuario
+            binding.btnMenu.visibility = View.GONE
+            binding.llServices.visibility = View.GONE
+            binding.llRequests.visibility = View.GONE
+            binding.bottomNavigation.visibility = View.GONE
+            binding.cvTopActions.visibility = View.GONE
+            binding.llLoggedIn.visibility = View.GONE
+            binding.bottomNavDivider.visibility = View.GONE
+            
+            // Limpiar contenedores
+            binding.llProfessionalList.removeAllViews()
+            binding.llRecentReviews.removeAllViews()
+            binding.llRequestsList.removeAllViews()
+            binding.llProfessionalSummary.removeAllViews()
+
+            // Mostrar vista de invitado limpia
+            binding.ivMainIcon.visibility = View.VISIBLE
+            binding.tvWelcome.text = getString(R.string.welcome_title)
+            binding.tvSubtitle.visibility = View.VISIBLE
+            binding.tvSubtitle.text = getString(R.string.welcome_subtitle)
+            binding.llGuest.visibility = View.VISIBLE
+            binding.actionsCard.visibility = View.VISIBLE
+            
+            headerName.text = getString(R.string.nav_header_title)
+            headerEmail.text = getString(R.string.nav_header_subtitle)
+            headerImage.setImageResource(android.R.drawable.sym_def_app_icon)
+            
+            binding.navView.menu.setGroupVisible(R.id.group_user_actions, false)
+            binding.navView.menu.findItem(R.id.nav_more_section).isVisible = false
         }
     }
 

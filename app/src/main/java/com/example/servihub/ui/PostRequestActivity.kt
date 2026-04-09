@@ -34,7 +34,7 @@ class PostRequestActivity : AppCompatActivity() {
 
         // Initialize ViewModel
         val database = AppDatabase.getDatabase(this)
-        val repository = UserRepository(database.userDao(), database.reviewDao(), database.workRequestDao())
+        val repository = UserRepository(database.userDao(), database.reviewDao(), database.workRequestDao(), database.favoriteDao(), database.chatDao())
         val factory = ViewModelFactory(repository)
         viewModel = ViewModelProvider(this, factory)[WelcomeViewModel::class.java]
 
