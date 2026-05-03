@@ -86,20 +86,23 @@ class WelcomeActivity : AppCompatActivity() {
             binding.ivMainIcon.visibility = View.GONE
             binding.tvSubtitle.visibility = View.VISIBLE
 
-            val roleText = if (profile.userRole == "PROFESSIONAL") "Profesional" else "Cliente"
-            binding.tvRoleStatus.text = "Modo: $roleText"
+            val roleText = if (profile.userRole == "PROFESSIONAL") getString(R.string.role_professional) else getString(R.string.role_client)
+            binding.tvRoleStatus.text = getString(R.string.label_mode, roleText)
             binding.tvWelcome.text = getString(R.string.welcome_title)
 
             if (profile.userRole == "CLIENT") {
                 binding.root.setBackgroundResource(R.drawable.bg_gradient_client)
                 binding.llServices.visibility = View.VISIBLE
                 binding.llRequests.visibility = View.GONE
+                binding.tvServicesTitle.text = getString(R.string.label_discover_experts)
+                binding.tvReviewsTitle.text = getString(R.string.label_recent_reviews)
                 setupExampleProfessionals()
                 setupRecentReviews()
             } else {
                 binding.root.setBackgroundResource(R.drawable.bg_gradient_professional)
                 binding.llServices.visibility = View.GONE
                 binding.llRequests.visibility = View.VISIBLE
+                binding.tvRequestsTitle.text = getString(R.string.label_job_requests)
                 setupProfessionalSummary()
             }
 
@@ -269,8 +272,8 @@ class WelcomeActivity : AppCompatActivity() {
         binding.llProfessionalSummary.removeAllViews()
         val inflater = LayoutInflater.from(this)
         val summaries = listOf(
-            Triple("Ganancias", "$1,250", "Este mes"),
-            Triple("Completados", "14", "Últimos 30 días")
+            Triple(getString(R.string.label_earnings), "$1,250", getString(R.string.label_this_month)),
+            Triple(getString(R.string.label_completed), "14", getString(R.string.label_last_30_days))
         )
         for (summary in summaries) {
             val itemView = inflater.inflate(R.layout.item_review_notification, binding.llProfessionalSummary, false)
@@ -302,6 +305,8 @@ class WelcomeActivity : AppCompatActivity() {
         currentProfile?.let {
             val newRole = if (it.userRole == "CLIENT") "PROFESSIONAL" else "CLIENT"
             viewModel.updateProfile(it.copy(userRole = newRole))
+            val roleName = if (newRole == "PROFESSIONAL") getString(R.string.role_professional) else getString(R.string.role_client)
+            showToast("Cambiado a modo $roleName")
         }
     }
 

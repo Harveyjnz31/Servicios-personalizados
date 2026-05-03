@@ -76,4 +76,39 @@
     <string name="label_full_name">Nombre completo</string>
     <string name="btn_save">Guardar cambios</string>
     <string name="logo_content_description">Logo de ServiHub</string>
+
+    <!-- New Activities and Features -->
+    <string name="title_post_request">Publicar Solicitud</string>
+    <string name="title_favorites">Mis Favoritos</string>
+    <string name="title_conversations">Conversaciones</string>
+    <string name="title_job_board">Bolsa de Trabajo</string>
+    <string name="title_chat">Chat</string>
+
+    <string name="label_discover_experts">Descubre Expertos</string>
+    <string name="label_recent_reviews">Reseñas Recientes</string>
+    <string name="label_job_requests">Solicitudes de Trabajo</string>
+    <string name="label_weekly_summary">Resumen Semanal</string>
+    <string name="label_view_all">Ver todas</string>
+    <string name="label_post_request_prompt">¿Necesitas un servicio? Publica aquí</string>
+
+    <string name="hint_request_title">Título de la solicitud</string>
+    <string name="hint_request_description">Descripción del problema o necesidad</string>
+    <string name="btn_publish_request">Publicar Solicitud</string>
+
+    <string name="msg_profile_updated">Perfil actualizado correctamente</string>
+    <string name="msg_request_published">Solicitud publicada con éxito</string>
+    <string name="msg_added_to_favorites">Agregado a favoritos</string>
+    <string name="msg_removed_from_favorites">Eliminado de favoritos</string>
+
+    <string name="label_contact">Contactar</string>
+    <string name="label_mode">Modo: %s</string>
+    <string name="label_earnings">Ganancias</string>
+    <string name="label_completed">Completados</string>
+    <string name="label_this_month">Este mes</string>
+    <string name="label_last_30_days">Últimos 30 días</string>
+
+    <string name="menu_search">Buscar</string>
+    <string name="menu_favorites">Favoritos</string>
+    <string name="menu_contacts">Contactos</string>
+    <string name="menu_profile">Perfil</string>
 </resources>

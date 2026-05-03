@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.example.servihub.R
 import com.example.servihub.data.AppDatabase
 import com.example.servihub.data.UserRepository
 import com.example.servihub.databinding.ActivityEditProfileBinding
@@ -80,7 +81,7 @@ class EditProfileActivity : AppCompatActivity() {
         )
         
         viewModel.updateProfile(updatedProfile)
-        Toast.makeText(this, "Perfil actualizado", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.msg_profile_updated), Toast.LENGTH_SHORT).show()
         finish()
     }
 }
